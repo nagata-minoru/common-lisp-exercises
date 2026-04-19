@@ -65,6 +65,20 @@
 (load-source "map-tree.lisp")
 (check "map-tree: nested list" '((2 3) (4 (5 (6)))) (map-tree '((1 2) (3 (4 (5))))))
 
+;; リストの最後の要素を取り出せることを確認する。
+(forget-functions 'my-last 'main)
+(load-source "my-last.lisp")
+(check "my-last: empty list" nil (my-last nil))
+(check "my-last: one element" 1 (my-last '(1)))
+(check "my-last: list" 3 (my-last '(1 2 3)))
+
+;; リストから最後の要素を除けることを確認する。
+(forget-functions 'my-butlast 'main)
+(load-source "my-butlast.lisp")
+(check "my-butlast: empty list" nil (my-butlast nil))
+(check "my-butlast: one element" nil (my-butlast '(1)))
+(check "my-butlast: list" '(1 2) (my-butlast '(1 2 3)))
+
 ;; append を使った再帰版のリスト反転を確認する。
 (forget-functions 'my-reverse 'main)
 (load-source "reverse.lisp")
