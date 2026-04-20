@@ -29,6 +29,13 @@
 (check "count-atoms: empty list" 0 (count-atoms nil))
 (check "count-atoms: nested list" 7 (count-atoms '(1 (2 (3 4) 5) (6 7))))
 
+;; リストや入れ子リストの各数値を 2 倍にできることを確認する。
+(forget-functions 'double-all 'main)
+(load-source "double-all.lisp")
+(check "double-all: empty list" nil (double-all nil))
+(check "double-all: list" '(2 4 6) (double-all '(1 2 3)))
+(check "double-all: nested list" '(2 (4 6) 8) (double-all '(1 (2 3) 4)))
+
 ;; リストから偶数だけを取り出せることを確認する。
 (forget-functions 'even-only 'main)
 (load-source "even-only.lisp")
@@ -59,6 +66,21 @@
 (load-source "flatten.lisp")
 (check "flatten: empty list" nil (flatten nil))
 (check "flatten: nested list" '(1 2 3 4 5) (flatten '((1 2) (3 (4 (5))))))
+
+;; リストの要素になっている各リストから先頭要素を取り出せることを確認する。
+(forget-functions 'firsts 'main)
+(load-source "firsts.lisp")
+(check "firsts: empty list" nil (firsts nil))
+(check "firsts: list elements" '(1 3 5) (firsts '((1 2) (3 4) (5 6))))
+(check "firsts: skip atoms" '(1 3) (firsts '((1 2) foo (3 4))))
+
+;; リストの最後の 2 要素を取り出せることを確認する。
+(forget-functions 'last2 'main)
+(load-source "last2.lisp")
+(check "last2: empty list" nil (last2 nil))
+(check "last2: one element" nil (last2 '(1)))
+(check "last2: two elements" '(1 2) (last2 '(1 2)))
+(check "last2: list" '(4 5) (last2 '(1 2 3 4 5)))
 
 ;; 入れ子リストの構造を保って各要素を変換できることを確認する。
 (forget-functions 'map-tree 'main)
@@ -96,6 +118,12 @@
 (load-source "tail-recursive-reverse.lisp")
 (check "tail-recursive-reverse: empty list" nil (my-reverse nil))
 (check "tail-recursive-reverse: list" '(3 2 1) (my-reverse '(1 2 3)))
+
+;; リストの 3 番目の要素を取り出せることを確認する。
+(forget-functions 'my-third 'main)
+(load-source "third.lisp")
+(check "my-third: short list" nil (my-third '(1 2)))
+(check "my-third: list" 3 (my-third '(1 2 3 4 5)))
 
 ;; 入れ子リストに含まれる最大値を確認する。
 (forget-functions 'tree-max 'main)
